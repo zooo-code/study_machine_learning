@@ -2,9 +2,8 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-x_data = [1,2,3,4,5]
-y_data = [1,2,3,4,5]
+x_data = [1, 2, 3, 4, 5]
+y_data = [1, 2, 3, 4, 5]
 
 plt.plot(x_data, y_data, 'o')
 plt.ylim(0, 8)
