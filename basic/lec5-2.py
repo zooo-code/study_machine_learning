@@ -32,10 +32,12 @@ def accuracy_fn(hypothesis, labels):
     # cast 함수는 자료형을 바꿔주고 equal 은 같은 게 나오면 true를 반환 아니면 false 반환 그래서 cast 써가지고 변환
     accuracy = tf.reduce_mean(tf.cast(tf.equal(predicted, labels), dtype=tf.int32))
     return accuracy
-
+# 기울기 구하는곳
 def grad(hypothesis, features, labels):
     with tf.GradientTape() as tape:
+        # 코스트 값 이용해서
         loss_value = loss_fn(logistic_regression(features),features,labels)
+    #w, b 값 리턴
     return tape.gradient(loss_value, [W,b])
 
 EPOCHS = 1001
