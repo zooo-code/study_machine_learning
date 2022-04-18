@@ -37,8 +37,7 @@ def grad(hypothesis, features, labels):
     with tf.GradientTape() as tape:
         # 코스트 값 이용해서
         loss_value = loss_fn(logistic_regression(features),features,labels)
-    #w, b 값 리턴
-    return tape.gradient(loss_value, [W,b])
+    #w, b 값 리턴턴    return tape.gradient(loss_value, [W,b])
 
 EPOCHS = 1001
 for step in range(EPOCHS):
