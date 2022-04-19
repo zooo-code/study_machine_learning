@@ -73,3 +73,4 @@ for step in range(EPOCHS):
 x_data, y_data = preprocess_data(x_data, y_data)
 test_acc = accuracy_fn(neural_net(x_data),y_data)
 print("Testset Accuracy: {:.4f}".format(test_acc))
+
