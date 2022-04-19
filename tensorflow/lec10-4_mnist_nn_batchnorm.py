@@ -71,8 +71,8 @@ def dense(label_dim, weight_init) :
 def relu() :
     return tf.keras.layers.Activation(tf.keras.activations.relu)
 # keras 내에 있는 함수를 사용
-def dropout(rate) :
-    return tf.keras.layers.Dropout(rate)
+def batch_norm() :
+    return tf.keras.layers.BatchNormalization()
 
 def create_model_function(label_dim) :
     weight_init = tf.keras.initializers.glorot_uniform()
@@ -80,11 +80,12 @@ def create_model_function(label_dim) :
     model = tf.keras.Sequential()
     model.add(flatten())
 
-    for i in range(4) :
+    for i in range(4):
+        # 모델의 순서는 각각 다르다 레루를 앞에 사용하는 경우도 존재하며
+        # 배치를 앞에 두는 경우도 존재한다.
         model.add(dense(512, weight_init))
+        model.add(batch_norm())
         model.add(relu())
-        # 어느정도 비율로 드롭아웃 할지
-        model.add(dropout(rate=0.5))
 
     model.add(dense(label_dim, weight_init))
 
@@ -125,7 +126,7 @@ optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
 checkpoint_dir = 'checkpoints'
 logs_dir = 'logs'
 
-model_dir = 'nn_dropout'
+model_dir = 'nn_batchnorm'
 
 checkpoint_dir = os.path.join(checkpoint_dir, model_dir)
 check_folder(checkpoint_dir)
