@@ -33,7 +33,7 @@ W = tf.Variable(tf.random.normal([4,3], name='weight'))
 b = tf.Variable(tf.random.normal([3]),name = 'bias')
 variable = [W, b]
 
-dataset.element_spec
+
 
 
 def softmax_fn (features):
