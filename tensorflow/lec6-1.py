@@ -34,8 +34,6 @@ b = tf.Variable(tf.random.normal([3]),name = 'bias')
 variable = [W, b]
 
 
-
-
 def softmax_fn (features):
     hypothesis = tf.nn.softmax(tf.matmul(features,W)+b)
     return hypothesis
