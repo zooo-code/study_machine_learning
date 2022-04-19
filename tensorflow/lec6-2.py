@@ -18,10 +18,10 @@ Y_one_hot = tf.one_hot(list(y_data), nb_classes)
 Y_one_hot = tf.reshape(Y_one_hot, [-1, nb_classes])
 
 x_data = np.asarray(x_data, dtype=np.float32)
-y_data = np.asarray(Y_one_hot, dtype=np.float32)
+
 
 nb_classes = 7  # 0 ~ 6
-dataset = tf.data.Dataset.from_tensor_slices((x_data, y_data)).batch(len(x_data))
+dataset = tf.data.Dataset.from_tensor_slices((x_data, Y_one_hot)).batch(len(x_data))
 W = tf.Variable(tf.random.normal([16,nb_classes], name='weight'),dtype='float32')
 b = tf.Variable(tf.random.normal([nb_classes]),name = 'bias')
 
