@@ -14,7 +14,6 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 # plt.colorbar()
 # plt.grid(False)
 
-
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
