@@ -37,6 +37,7 @@ def data_augmentation(images, labels):
         bg_value = np.median(x)
 
         for _ in range(4):
+            # -15~14까지 램덤한 숫자를 하나 뽑는다.
             angle = np.random.randint(-15, 15, 1)
             rot_img = ndimage.rotate(x, angle[0], reshape=False, cval=bg_value)
 
