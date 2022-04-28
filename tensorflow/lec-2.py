@@ -17,11 +17,14 @@ learning_rate = 0.01
 for i in range(100):
     # Gradient descent
     # 가중치와 바이어스 값을 100번의 수정을 한다.
+    # tf.GradientTape는 컨텍스트(context) 안에서 실행된 모든 연산을 테이프(tape)에 "기록"합니다.
+    # 그 다음 텐서플로는 후진 방식 자동 미분(reverse mode differentiation)을 사용해 테이프에 "기록된" 연산의 그래디언트를 계산합니다.
     with tf.GradientTape() as tape:
         hypothesis = W * x_data + b
         cost = tf.reduce_mean(tf.square(hypothesis - y_data))
-
+    # 가중치와 바이어스를 받아온다.
     W_grad, b_grad = tape.gradient(cost, [W, b])
+    # sub 값은 W = W - learning_rate * W_grad ,b = b -learning_rate * b_grad
     W.assign_sub(learning_rate * W_grad)
     b.assign_sub(learning_rate * b_grad)
     if i % 10 == 0:
