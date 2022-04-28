@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 hello = tf.constant("Hello, TensorFlow!")
 print(hello)
-
+# 텐서의 값을 정한다. 3, 4
 node1 = tf.constant(3.0,tf.float32)
 node2 = tf.constant(4.0,tf.float32)
 print("node1:", node1, "node2:", node2)
@@ -15,7 +15,8 @@ print(out_a)
 # 더하기 연산을 제공해주기도 한다.
 node3 = tf.add(node1,node2)
 print(node3)
-
+# 그냥 더하기 연산이랑 비교한거다.
+# 배열도 가능한다.
 node4 = tf.constant([2.,3.,4], tf.float32)
 node5 = tf.constant([3.,2.,1], tf.float32)
 print(node4+node5)

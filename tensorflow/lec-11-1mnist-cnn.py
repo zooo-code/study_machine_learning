@@ -87,7 +87,7 @@ optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
 # 체크 포인트 생성
 checkpoint = tf.train.Checkpoint(cnn=model)
 # 훈련 함수
-@tf.function
+@tf.functioncallbacks
 def train(model, images, labels):
     grads = grad(model, images, labels)
     optimizer.apply_gradients(zip(grads, model.trainable_variables))
