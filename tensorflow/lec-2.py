@@ -23,8 +23,12 @@ for i in range(100):
         hypothesis = W * x_data + b
         cost = tf.reduce_mean(tf.square(hypothesis - y_data))
     # 가중치와 바이어스를 받아온다.
+    # ex) dy = 2x * dx
+    # dy_dx = tape.gradient(y, x)
+    # cost = y , 우리가 미분해서 원하는 값 w,b
     W_grad, b_grad = tape.gradient(cost, [W, b])
     # sub 값은 W = W - learning_rate * W_grad ,b = b -learning_rate * b_grad
+    # LOSS 값이 최소가 되기 위해 계속 빼줘야함
     W.assign_sub(learning_rate * W_grad)
     b.assign_sub(learning_rate * b_grad)
     if i % 10 == 0:
