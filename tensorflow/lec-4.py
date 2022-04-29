@@ -50,6 +50,7 @@ for i in range(n_epochs + 1):
         cost = tf.reduce_mean((tf.square(predict(X) - y)))
 
     # calculates the gradients of the loss
+    # 기울기 값을 정한다.
     W_grad, b_grad = tape.gradient(cost, [W, b])
 
     # updates parameters (W and b)
