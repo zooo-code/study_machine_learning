@@ -33,21 +33,17 @@ W = tf.Variable(tf.random.normal([4,3], name='weight'))
 b = tf.Variable(tf.random.normal([3]),name = 'bias')
 variable = [W, b]
 
-
 def softmax_fn (features):
     hypothesis = tf.nn.softmax(tf.matmul(features,W)+b)
     return hypothesis
 
-
 sample_db = [[8,2,1,4]]
 sample_db = np.asarray(sample_db, dtype=np.float32)
-
 
 def loss_fn(features, labels):
     hypothesis = tf.nn.softmax(tf.matmul(features, W) + b)
     cost = tf.reduce_mean(-tf.reduce_sum(labels * tf.math.log(hypothesis), axis=1))
     return cost
-
 
 def grad(features, labels):
     with tf.GradientTape() as tape:
@@ -59,10 +55,13 @@ optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
 
 n_epochs = 3000
 for step in range(n_epochs + 1):
-
+    # 데이터 셋을 반복문을 돌린다.
     for features, labels in iter(dataset):
+        # 가설 값
         hypothesis = softmax_fn(features)
+        # 기울기를 구한다.
         grads = grad(features, labels)
+        # 최적화 한다.
         optimizer.apply_gradients(grads_and_vars=zip(grads, [W, b]))
 
         if step % 300 == 0:
