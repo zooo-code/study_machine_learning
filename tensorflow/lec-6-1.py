@@ -63,7 +63,7 @@ for step in range(n_epochs + 1):
         grads = grad(features, labels)
         # 최적화 한다.
         optimizer.apply_gradients(grads_and_vars=zip(grads, [W, b]))
-
+        # 300마다 출력
         if step % 300 == 0:
             print("iter: {}, Loss: {:.4f}".format(step, loss_fn(features, labels)))
 
