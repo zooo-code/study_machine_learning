@@ -40,11 +40,12 @@ def softmax_fn (features):
 sample_db = [[8,2,1,4]]
 sample_db = np.asarray(sample_db, dtype=np.float32)
 
+# 손실 값을 구하는 함수
 def loss_fn(features, labels):
     hypothesis = tf.nn.softmax(tf.matmul(features, W) + b)
     cost = tf.reduce_mean(-tf.reduce_sum(labels * tf.math.log(hypothesis), axis=1))
     return cost
-
+# 기울기 최적화
 def grad(features, labels):
     with tf.GradientTape() as tape:
         loss_value = loss_fn(features, labels)
