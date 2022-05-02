@@ -64,7 +64,6 @@ def loss_fn(hypothesis, features, labels):
     cost = tf.reduce_mean(-tf.reduce_sum(labels * tf.math.log(hypothesis), axis=1))
     return cost
 
-
 is_decay = True
 starter_learning_rate = 0.1
 # Learning Rate 값을 조정하기 위한 Learning Decay 설정
@@ -83,10 +82,13 @@ if (is_decay):
 else:
     optimizer = tf.keras.optimizers.SGD(learning_rate=starter_learning_rate)
 
-
 def grad(hypothesis, features, labels):
+    # tf.GradientTape() 는 자동 미분을 해주는 함수이다.
     with tf.GradientTape() as tape:
+        # softmax의 가설 값과 라벨 값을 이용해 손실을 구한다.
         loss_value = loss_fn(softmax_fn(features), features, labels)
+    # 손실의 값과 가중치와 바이어스의 값을 넣어 기울기의
+    # 아래와 같은 리턴은 [dl_dw, dl_db] = tape.gradient(loss, [w, b])을 계산한다.
     return tape.gradient(loss_value, [W, b])
 # 정확도를 예측하는 함수
 def accuracy_fn(hypothesis, labels):
@@ -105,6 +107,7 @@ for step in range(EPOCHS):
         features = tf.cast(features, tf.float32)
         labels = tf.cast(labels, tf.float32)
         grads = grad(softmax_fn(features), features, labels)
+        print(grads)
         optimizer.apply_gradients(grads_and_vars=zip(grads,[W,b]))
         if step % 100 == 0:
             print("Iter: {}, Loss: {:.4f}".format(step, loss_fn(softmax_fn(features),features,labels)))
