@@ -88,9 +88,12 @@ def grad(hypothesis, features, labels):
     with tf.GradientTape() as tape:
         loss_value = loss_fn(softmax_fn(features), features, labels)
     return tape.gradient(loss_value, [W, b])
-
+# 정확도를 예측하는 함수
 def accuracy_fn(hypothesis, labels):
+    # tf.argmax 함수는 텐서의 축에서 값이 가장 큰 인덱스를 반환합니다.
+    # 가설 값의 축 1에서 가장 큰 값의 인덱스를 뽑아낸다. (가장 안쪽의 축이라 생각하면된다.)
     prediction = tf.argmax(hypothesis, 1)
+    # 예측이 라벨의 가장 큰 인덱스와 같다면? correct 이다.
     is_correct = tf.equal(prediction, tf.argmax(labels, 1))
     accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
     return accuracy

@@ -39,7 +39,7 @@ dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(len(x_tra
 
 W = tf.Variable(tf.random.normal((4, 1)), dtype=tf.float32)
 b = tf.Variable(tf.random.normal((1,)), dtype=tf.float32)
-
+# 선형 회기 함수
 def linearReg_fn(features):
     hypothesis = tf.matmul(features, W) + b
     return hypothesis
@@ -49,7 +49,7 @@ def l2_loss(loss, beta = 0.01):
     W_reg = tf.nn.l2_loss(W) # output = sum(t ** 2) / 2
     loss = tf.reduce_mean(loss + W_reg * beta)
     return loss
-
+# 손실 함수 구하는 것
 def loss_fn(hypothesis, features, labels, flag = False):
     cost = tf.reduce_mean(tf.square(hypothesis - labels))
     if(flag):
