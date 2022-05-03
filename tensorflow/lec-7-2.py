@@ -55,10 +55,10 @@ def loss_fn(hypothesis, features, labels, flag = False):
     if(flag):
         cost = l2_loss(cost)
     return cost
-
+# decay를 해주며 학습율을 조정해준다.
 is_decay = True
 starter_learning_rate = 0.1
-
+# rate를 수정해주며 진행한다.
 if(is_decay):
     learning_rate = tf.keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=starter_learning_rate,
                                                                   decay_steps=50,
