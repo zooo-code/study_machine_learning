@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+# 여기의 코드는 뉴럴 네트워크를 적용한 코드이다. 9-1과 비교
 import tensorflow as tf
 x_data = [[0, 0],
           [0, 1],
@@ -36,9 +36,12 @@ b2 = tf.Variable(tf.random.normal((1,)), name='bias2')
 W3 = tf.Variable(tf.random.normal((2, 1)), name='weight3')
 b3 = tf.Variable(tf.random.normal((1,)), name='bias3')
 
+# 뉴럴 넷이다.
+# 여러개의 층을 시그모이드로이어준다.
 def neural_net(features):
     layer1 = tf.sigmoid(tf.matmul(features, W1) + b1)
     layer2 = tf.sigmoid(tf.matmul(features, W2) + b2)
+    # tf.concat 은 단순하게 설명하자면, 장난감 블록을 붙이듯 axis 축에 대하여 자료를 합체시키는 것이다.
     layer3 = tf.concat([layer1, layer2],-1)
     layer3 = tf.reshape(layer3, shape = [-1,2])
     hypothesis = tf.sigmoid(tf.matmul(layer3, W3) + b3)

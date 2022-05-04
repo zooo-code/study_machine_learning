@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+# 여기의 코드는 뉴럴 네트워크를 적용하지 않은 코드이다. 이코드를 실행
+# 하게된다면 정확도가 0.5가 나온다.
 import tensorflow as tf
 
 tf.random.set_seed(777)  # for reproducibility
