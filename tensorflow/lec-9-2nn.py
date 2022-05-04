@@ -41,8 +41,13 @@ b3 = tf.Variable(tf.random.normal((1,)), name='bias3')
 def neural_net(features):
     layer1 = tf.sigmoid(tf.matmul(features, W1) + b1)
     layer2 = tf.sigmoid(tf.matmul(features, W2) + b2)
+    print(layer1,layer2)
     # tf.concat 은 단순하게 설명하자면, 장난감 블록을 붙이듯 axis 축에 대하여 자료를 합체시키는 것이다.
+    # 축의 값이 -1 이므로 가장 안쪽의 축을 중심으로 합쳐진다고 생각하면된다. 따라서
+    # 시그모이드의 결과로 나온 2개의 레이어의 텐서 값들을 데이터의 수만큼 넣기 때문에
+    # 4개의 결과가 나오게 되며 -1축을 중심으로(가장 안쪽)  합치기 대문에 4*2의 모양이 나오게 된다.
     layer3 = tf.concat([layer1, layer2],-1)
+    print(layer3)
     layer3 = tf.reshape(layer3, shape = [-1,2])
     hypothesis = tf.sigmoid(tf.matmul(layer3, W3) + b3)
     return hypothesis
