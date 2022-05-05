@@ -51,7 +51,10 @@ def loss_fn(model, images, labels):
 
 def accuracy_fn(model, images, labels):
     logits = model(images, training=False)
+    # tf.argmax 가장 큰 값의 위치가 무엇인지 알려줌
+    # 나온 logit 값을 이용 logits 과 label의 값은 [batch size, label_dim] 인데 label_dim을 사용함
     prediction = tf.equal(tf.argmax(logits, -1), tf.argmax(labels, -1))
+    # tf.cast를 이용해 true,false 의 값을 실수로 변환
     accuracy = tf.reduce_mean(tf.cast(prediction, tf.float32))
     return accuracy
 
@@ -109,7 +112,7 @@ train_dataset = tf.data.Dataset.from_tensor_slices((train_x, train_y)).\
     shuffle(buffer_size=100000).\
     prefetch(buffer_size=batch_size).\
     batch(batch_size, drop_remainder=True)
-
+#     prefetch는 미리 batch_size 만큼 메모리에 올려두는 것을 의미함 더욱 학습이 빨라짐
 test_dataset = tf.data.Dataset.from_tensor_slices((test_x, test_y)).\
     shuffle(buffer_size=100000).\
     prefetch(buffer_size=len(test_x)).\
@@ -160,6 +163,7 @@ if train_flag:
         # train을 한다.
         for epoch in range(start_epoch, training_epochs):
             for idx, (train_input, train_label) in enumerate(train_dataset):
+
                 grads = grad(network, train_input, train_label)
                 optimizer.apply_gradients(grads_and_vars=zip(grads, network.variables))
 
