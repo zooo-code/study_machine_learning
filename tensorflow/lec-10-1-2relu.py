@@ -67,6 +67,7 @@ def flatten() :
 def dense(label_dim, weight_init) :
     return tf.keras.layers.Dense(units=label_dim, use_bias=True, kernel_initializer=weight_init)
 
+# tf 에 있는 relu 함수를 사용한다. 활성화 함수를 사용한다.
 def relu() :
     return tf.keras.layers.Activation(tf.keras.activations.relu)
 
@@ -79,8 +80,9 @@ def create_model_function(label_dim) :
 
     for i in range(2) :
         model.add(dense(256, weight_init))
+        # relu 함수를 넣는다.
         model.add(relu())
-
+    # 마지막에 라벨의 차원과 w를 넣는다.
     model.add(dense(label_dim, weight_init))
 
     return model
@@ -111,11 +113,13 @@ test_dataset = tf.data.Dataset.from_tensor_slices((test_x, test_y)).\
     batch(len(test_x))
 
 """ Model """
+# 모델 만들기
 network = create_model_function(label_dim)
 
 """ Training """
+# 최적화로 아담을 사용한다.
 optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-
+# 체크포인트를 저장한다.
 """ Writer """
 checkpoint_dir = 'checkpoints'
 logs_dir = 'logs'
@@ -150,6 +154,7 @@ if train_flag:
 
     # train phase
     with summary_writer.as_default():  # for tensorboard
+        # train을 한다.
         for epoch in range(start_epoch, training_epochs):
             for idx, (train_input, train_label) in enumerate(train_dataset):
                 grads = grad(network, train_input, train_label)
