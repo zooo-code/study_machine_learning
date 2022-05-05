@@ -31,12 +31,12 @@ def load_mnist() :
     test_data = np.expand_dims(test_data, axis=-1) # [N, 28, 28] -> [N, 28, 28, 1]
 
     train_data, test_data = normalize(train_data, test_data)
-
+    # 정답들 전처리 원핫 인코딩 진행
     train_labels = to_categorical(train_labels, 10) # [N,] -> [N, 10]
     test_labels = to_categorical(test_labels, 10) # [N,] -> [N, 10]
 
     return train_data, train_labels, test_data, test_labels
-
+# 255 데이터 정규화
 def normalize(train_data, test_data):
     train_data = train_data.astype(np.float32) / 255.0
     test_data = test_data.astype(np.float32) / 255.0
