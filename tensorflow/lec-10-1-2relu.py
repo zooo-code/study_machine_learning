@@ -60,31 +60,34 @@ def grad(model, images, labels):
         loss = loss_fn(model, images, labels)
     return tape.gradient(loss, model.variables)
 
-
+# shape를 펼쳐준다,
 def flatten() :
     return tf.keras.layers.Flatten()
-
+# 우리는 fully connect layer를 사용할 거기 때문에 dense layer 이용
 def dense(label_dim, weight_init) :
+    # units은 아웃풋 채널의 수를 결정해준다. use_bias 사용하면 true, kernel_initializer은 w결정
     return tf.keras.layers.Dense(units=label_dim, use_bias=True, kernel_initializer=weight_init)
 
 # tf 에 있는 relu 함수를 사용한다. 활성화 함수를 사용한다.
 def relu() :
     return tf.keras.layers.Activation(tf.keras.activations.relu)
 
-
+# 함수로 만들기 몇개의 아웃풀이 중요하니 label_dim을 입력을 받는다.
 def create_model_function(label_dim) :
+    # w 램덤한 값 시작
     weight_init = tf.keras.initializers.RandomNormal()
-
+    # 모델 제작 층층이
     model = tf.keras.Sequential()
+    # flatten 작업 진행 평평하게 펴짐
     model.add(flatten())
-
+    # for 문 돌리면서 층 쌓음
     for i in range(2) :
+        #  dense(label_dim, weight_init)
         model.add(dense(256, weight_init))
         # relu 함수를 넣는다.
         model.add(relu())
     # 마지막에 라벨의 차원과 w를 넣는다.
     model.add(dense(label_dim, weight_init))
-
     return model
 
 """ dataset """
