@@ -3,10 +3,11 @@ import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
 
-
+# 이 이미지의 데이터 format은 1,3,3,1 이다 이유는 batch 1장 , h,w,c(채널)이다.
 image = tf.constant([[[[1],[2],[3]],
                    [[4],[5],[6]],
                    [[7],[8],[9]]]], dtype=np.float32)
+#
 # print(image.shape)
 # plt.imshow(image.numpy().reshape(3,3), cmap='Greys')
 # plt.show()
@@ -14,9 +15,10 @@ image = tf.constant([[[[1],[2],[3]],
 print("image.shape", image.shape)
 # 패딩 안함
 # 2*2필터
+
 weight = np.array([[[[1.]],[[1.]]],
                    [[[1.]],[[1.]]]])
-
+# w의 shape은 2,2,1,1 이다. 순서는 h,w,c, 필터의 수이다.
 print("weight.shape", weight.shape)
 # weight의 초기값
 weight_init = tf.constant_initializer(weight)
@@ -44,7 +46,8 @@ print(conv2d.numpy().reshape(3,3))
 #3 filters (2,2,1,3) 필터 3개
 # print("imag:\n", image)
 print("image.shape", image.shape)
-
+# 필터 shape 2,2,1,3
+# 핕터의 모양은 1,1,1,1  10,10,10,10  -1,-1,-1,-1 이다.
 weight = np.array([[[[1.,10.,-1.]],[[1.,10.,-1.]]],
                    [[[1.,10.,-1.]],[[1.,10.,-1.]]]])
 # 웨이트 쉐잎을 확인하자

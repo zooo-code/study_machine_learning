@@ -4,8 +4,7 @@ from tensorflow.keras.utils import to_categorical
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-
-
+# 파라미터 설정
 learning_rate = 0.001
 training_epochs = 15
 batch_size = 100
@@ -25,9 +24,11 @@ mnist = keras.datasets.mnist
 class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
-
+# 정규화
 train_images = train_images.astype(np.float32) / 255.
 test_images = test_images.astype(np.float32) / 255.
+# 차원 증가 데이터 format 이 batch, height, width , channels 인데 우리가
+# 받아오는 데이터는 한차원이 부족한 배치 batch, height, width 이다.
 train_images = np.expand_dims(train_images, axis=-1)
 test_images = np.expand_dims(test_images, axis=-1)
 
