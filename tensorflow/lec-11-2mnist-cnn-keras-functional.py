@@ -21,12 +21,14 @@ os.makedirs(checkpoint_dir, exist_ok=True)
 checkpoint_prefix = os.path.join(checkpoint_dir, model_dir_name)
 
 mnist = keras.datasets.mnist
+# mnist의 데이터의 클래스이다. 총 10개
 class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
 train_images = train_images.astype(np.float32) / 255.
 test_images = test_images.astype(np.float32) / 255.
+# 이미지의 데이터의 차원이 하나 작으므로 하나 추가해 4차원을 만들어준다. 배치 , 높이, 너비, 채널 ? 로 알고 있다.
 train_images = np.expand_dims(train_images, axis=-1)
 test_images = np.expand_dims(test_images, axis=-1)
 
@@ -46,9 +48,11 @@ def create_model():
     pool2 = keras.layers.MaxPool2D(padding='SAME')(conv2)
     conv3 = keras.layers.Conv2D(filters=128, kernel_size=[3, 3], padding='SAME', activation=tf.nn.relu)(pool2)
     pool3 = keras.layers.MaxPool2D(padding='SAME')(conv3)
+    # 완전 연결 층에 들어오기 전에 flatten 을 한다.
     pool3_flat = keras.layers.Flatten()(pool3)
     dense4 = keras.layers.Dense(units=256, activation=tf.nn.relu)(pool3_flat)
     drop4 = keras.layers.Dropout(rate=0.4)(dense4)
+    # 마지막 10개로 구분을 한다.
     logits = keras.layers.Dense(units=10)(drop4)
     return keras.Model(inputs=inputs, outputs=logits)
 
