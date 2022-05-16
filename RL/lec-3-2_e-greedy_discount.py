@@ -26,7 +26,7 @@ for i in range(num_episodes):
     state = env.reset()
     rAll = 0
     done = False
-
+    # e 값을 조정한다.
     e = 1. / ((i // 100) + 1)  # Python2&3
 
     # The Q-Table learning algorithm
