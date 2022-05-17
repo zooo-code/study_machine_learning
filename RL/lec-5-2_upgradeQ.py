@@ -78,7 +78,7 @@ def main():
 
             if done:
                 print("Episode Reward: {}".format(episode_reward))
-        
+
 
         rewards.append(episode_reward)
 
